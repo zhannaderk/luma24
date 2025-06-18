@@ -33,5 +33,6 @@ def test_search(homepage):
     homepage.open()
     homepage.enter_search_query("Dress")
     homepage.click_search_query()
-    
+    result_search = homepage.get_search_result()
+    assert "Dress" in result_search, "No dresses are found"
     

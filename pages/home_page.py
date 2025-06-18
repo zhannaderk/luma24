@@ -38,3 +38,6 @@ class HomePage:
     def click_search_query(self):
         search_button = self.driver.find_element(By.CLASS_NAME, "action search")
         search_button.click()
+
+    def get_search_result(self):
+        return self.driver.find_element(By.XPATH, "//*[@id='maincontent']/div[1]/h1/span")
