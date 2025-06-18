@@ -28,3 +28,10 @@ def test_banner_is_loaded(homepage):
     homepage.wait_for_banner()
     banner = homepage.get_banner()
     assert banner.is_displayed(), "Banner is not loaded"
+
+def test_search(homepage):
+    homepage.open()
+    homepage.enter_search_query("Dress")
+    homepage.click_search_query()
+    
+    
