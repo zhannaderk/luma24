@@ -1,4 +1,5 @@
 import pytest
+import time
 from pages.home_page import HomePage
 
 @pytest.fixture
@@ -12,6 +13,7 @@ def test_homepage_loads(homepage):
 
 def test_homepage_logo(homepage):
     homepage.open()
+    time.sleep(10)
     logo = homepage.get_logo()
     assert logo.is_displayed(), "Logo is not displayed"
 

@@ -30,3 +30,11 @@ class HomePage:
         self.wait.until(EC.visibility_of_element_located(
             (By.XPATH, "//a[contains(@class, 'block-promo') and contains(@class, 'home-main')]")
         ))
+
+    def enter_search_query(self,query):
+        search_box = self.driver.find_element(By.ID, "search_mini_form")
+        search_box.send_keys(query)
+
+    def click_search_query(self):
+        search_button = self.driver.find_element(By.CLASS_NAME, "action search")
+        search_button.click()
