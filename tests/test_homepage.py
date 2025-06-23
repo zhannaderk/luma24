@@ -31,8 +31,14 @@ def test_banner_is_loaded(homepage):
 
 def test_search(homepage):
     homepage.open()
-    homepage.enter_search_query("Dress")
+    time.sleep(2)
+    homepage.enter_search_query("dress for woman")
+    time.sleep(5)
     homepage.click_search_query()
-    result_search = homepage.get_search_result()
-    assert "Dress" in result_search, "No dresses are found"
+
+    result_search_head = homepage.get_search_result_head()
+    assert "dress for woman" in result_search_head, f"Expected 'dress for woman', but got: '{result_search_head}'"
+
+    products = homepage.get_product_titles()
+    assert len(products) > 0, "No products found for 'Dress' search"
     

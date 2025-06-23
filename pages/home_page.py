@@ -1,3 +1,6 @@
+import time
+
+from selenium.webdriver import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -31,13 +34,24 @@ class HomePage:
             (By.XPATH, "//a[contains(@class, 'block-promo') and contains(@class, 'home-main')]")
         ))
 
-    def enter_search_query(self,query):
-        search_box = self.driver.find_element(By.ID, "search_mini_form")
+    def enter_search_query(self, query):
+        search_box = self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, "//input[@id='search']"))
+        )
+        search_box.clear()
         search_box.send_keys(query)
 
     def click_search_query(self):
-        search_button = self.driver.find_element(By.CLASS_NAME, "action search")
-        search_button.click()
+        search_input = self.driver.find_element(By.CSS_SELECTOR, "input.input-text[name='q']")
+        search_input.send_keys(Keys.ENTER)
 
-    def get_search_result(self):
-        return self.driver.find_element(By.XPATH, "//*[@id='maincontent']/div[1]/h1/span")
+    def get_search_result_head(self):
+        return self.wait.until(
+            EC.visibility_of_element_located((By.XPATH, "//main[@id='maincontent']//h1/span"))
+        ).text
+
+    def get_product_titles(self):
+        return [el.text for el in self.driver.find_elements(By.CSS_SELECTOR, "strong.product.name a")]
+
+    def is_no_results_displayed(self):
+        return self.driver.find_elements(By.CSS_SELECTOR, ".message.notice")
